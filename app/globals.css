@@ -1,0 +1,234 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Kodchasan:wght@200;300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700&display=swap');
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    
+    --primary: 287 74% 43%;
+    --primary-foreground: 0 0% 100%;
+    
+    --secondary: 287 42% 63%;
+    --secondary-foreground: 0 0% 100%;
+    
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 287 74% 43%;
+    
+    --radius: 0.5rem;
+    
+    --strive-primary: #911CBE;
+    --strive-light: #B175D1;
+    --strive-dark: #6E0F94;
+  }
+  
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    
+    --primary: 287 42% 63%;
+    --primary-foreground: 0 0% 100%;
+    
+    --secondary: 287 74% 43%;
+    --secondary-foreground: 210 40% 98%;
+    
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 287 42% 63%;
+  }
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  height: 100%;
+  overflow-x: hidden;
+  font-family: 'Nunito', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Kodchasan', sans-serif;
+  color: var(--strive-primary);
+}
+
+.dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
+  color: var(--strive-light);
+}
+
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.chat-messages {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem 0.5rem;
+  gap: 1rem;
+}
+
+.message-bubble {
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius);
+  max-width: 85%;
+  word-break: break-word;
+}
+
+@media (min-width: 768px) {
+  .message-bubble {
+    max-width: 75%;
+  }
+  
+  .chat-container {
+    padding: 0 1.5rem;
+  }
+  
+  .chat-messages {
+    padding: 1rem;
+  }
+}
+
+.user-message {
+  background-color: var(--strive-primary);
+  color: white;
+  margin-left: auto;
+  border-radius: var(--radius) var(--radius) 0 var(--radius);
+}
+
+.dark .user-message {
+  background-color: var(--strive-light);
+  color: white;
+}
+
+.bot-message {
+  background-color: white;
+  color: var(--strive-primary);
+  border: 2px solid var(--strive-primary);
+  border-radius: var(--radius) var(--radius) var(--radius) 0px;
+}
+
+.dark .bot-message {
+  background-color: #1e1e1e;
+  color: var(--strive-light);
+  border: 2px solid var(--strive-light);
+}
+
+.option-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  border-radius: var(--radius);
+  font-size: 0.875rem;
+  transition-property: color, background-color, border-color;
+  transition-duration: 150ms;
+  outline: none;
+  border: 2px solid var(--strive-primary);
+  color: var(--strive-primary);
+  background-color: white;
+  height: 2.5rem;
+  padding: 0.5rem 1rem;
+  font-family: 'Kodchasan', sans-serif;
+  font-weight: 600;
+}
+
+.option-button:hover {
+  background-color: var(--strive-primary);
+  color: white;
+}
+
+.dark .option-button {
+  border-color: var(--strive-light);
+  color: var(--strive-light);
+  background-color: #1e1e1e;
+}
+
+.dark .option-button:hover {
+  background-color: var(--strive-light);
+  color: white;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.typing-animation {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  margin: 0;
+  letter-spacing: 0.15em;
+  animation: typing 1.5s steps(30, end);
+}
+
+.breathing-circle {
+  border-radius: 50%;
+  transition: all 1s ease-in-out;
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+@keyframes fade-in {
+  from { opacity: 0 }
+  to { opacity: 1 }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-in;
+}
