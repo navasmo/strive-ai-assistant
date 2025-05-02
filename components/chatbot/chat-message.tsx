@@ -40,7 +40,7 @@ const p = ({ children, ...props }: MarkdownComponentProps) => {
     <p 
       className={cn(
         "text-gray-700 dark:text-gray-300",
-        isInListItem ? "my-0.5" : "my-2" // Reduce spacing when in lists
+        isInListItem ? "mb-0.5" : "mb-1" // Reduce spacing slightly
       )} 
       {...props}
     >
@@ -73,32 +73,39 @@ export function ChatMessage({
   useEffect(() => {
     if (role === 'assistant' && !isLoading) {
       setIsTyping(true)
-      setTypedContent('')
+      setTypedContent('') // Reset content immediately
       
       // Find first word boundary to prevent showing partial words
       const firstSpaceIndex = content.indexOf(' ');
-      let firstWordLength = firstSpaceIndex > 0 ? firstSpaceIndex + 1 : Math.min(content.length, 10);
+      let firstWordLength = firstSpaceIndex > -1 ? firstSpaceIndex : content.length; // Handle single-word messages
       
-      // Start with first complete word to avoid showing misspelled words
-      setTimeout(() => {
-        setTypedContent(content.substring(0, firstWordLength));
-      }, 10);
+      // Start with the first complete word to avoid showing misspelled words
+      // Set it directly, then start the interval slightly delayed
+      const initialWord = content.substring(0, firstWordLength);
+      setTypedContent(initialWord);
       
-      // Then continue with the rest of the text
-      let i = firstWordLength;
-      const typeInterval = setInterval(() => {
-        if (i < content.length) {
-          setTypedContent((prev) => prev + content.charAt(i))
-          i++
-        } else {
-          clearInterval(typeInterval)
-          setIsTyping(false)
-        }
-      }, 15) // Adjust speed of typing
-      
-      return () => clearInterval(typeInterval)
+      // Only start typing the rest if there's more content
+      if (firstWordLength < content.length) {
+        let i = firstWordLength;
+        const typeInterval = setInterval(() => {
+          if (i < content.length) {
+            // Append characters one by one
+            setTypedContent((prev) => prev + content.charAt(i));
+            i++;
+          } else {
+            clearInterval(typeInterval);
+            setIsTyping(false);
+          }
+        }, 20); // Slightly adjusted typing speed
+        
+        // Clear interval on cleanup
+        return () => clearInterval(typeInterval);
+      } else {
+        // If the message is only one word, finish typing immediately
+        setIsTyping(false);
+      }
     }
-  }, [content, role, isLoading])
+  }, [content, role, isLoading]);
 
   // Extract disclaimer if present
   const [mainContent, disclaimer] = useMemo(() => {
@@ -162,8 +169,9 @@ export function ChatMessage({
                   {children}
                 </ol>
               ),
-              li: renderListItemWithBoldHeading,
-              
+              li: ({ children, ...props }: MarkdownComponentProps) => (
+                <li className="my-0.5" {...props}>{children}</li> // Reduced list item margin
+              ),
               // Style bold text
               strong: ({ children, ...props }: MarkdownComponentProps) => <strong className="font-bold text-purple-700 dark:text-purple-300 inline" {...props}>{children}</strong>,
               
@@ -205,8 +213,9 @@ export function ChatMessage({
                   {children}
                 </ol>
               ),
-              li: renderListItemWithBoldHeading,
-              
+              li: ({ children, ...props }: MarkdownComponentProps) => (
+                <li className="my-0.5" {...props}>{children}</li> // Reduced list item margin
+              ),
               // Style bold text
               strong: ({ children, ...props }: MarkdownComponentProps) => <strong className="font-bold text-purple-700 dark:text-purple-300 inline" {...props}>{children}</strong>,
               
@@ -264,7 +273,7 @@ export function ChatMessage({
         <div className="flex flex-col">
           {role === 'assistant' && (
             <div className="text-xs font-medium pl-3 pt-2 text-purple-700 dark:text-purple-400 font-brand">
-              StriveBot
+              Strive AI
             </div>
           )}
           
@@ -287,8 +296,8 @@ export function ChatMessage({
           )}
         </div>
         
-        {/* Feedback Buttons (only for assistant messages, not loading, and handler provided) */}
-        {role === 'assistant' && !isLoading && onFeedback && messageId && (
+        {/* Feedback Buttons (only for assistant messages, not loading, NOT typing, and handler provided) */}
+        {role === 'assistant' && !isLoading && !isTyping && onFeedback && messageId && (
           <div className="absolute -bottom-2 right-2 flex space-x-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
             <button 
               onClick={() => onFeedback(messageId, 'like')}
