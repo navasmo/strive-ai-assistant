@@ -22,14 +22,32 @@ const renderListItemWithBoldHeading = ({ children, ...props }: MarkdownComponent
   // Check if the first child is a paragraph that contains a strong element
   if (childrenArray.length > 0) {
     return (
-      <li className="my-1" {...props}>
+      <li className="my-1.5" {...props}>
         {children}
       </li>
     );
   }
   
-  return <li className="my-1" {...props}>{children}</li>;
+  return <li className="my-1.5" {...props}>{children}</li>;
 };
+
+// Style paragraphs
+const p = ({ children, ...props }: MarkdownComponentProps) => {
+  // Check if this paragraph is part of a list item and doesn't need extra margin
+  const isInListItem = props.node?.parent?.type === 'listItem';
+  
+  return (
+    <p 
+      className={cn(
+        "text-gray-700 dark:text-gray-300",
+        isInListItem ? "my-0.5" : "my-2" // Reduce spacing when in lists
+      )} 
+      {...props}
+    >
+      {children}
+    </p>
+  );
+}
 
 interface ChatMessageProps {
   readonly content: string
@@ -57,7 +75,17 @@ export function ChatMessage({
       setIsTyping(true)
       setTypedContent('')
       
-      let i = 0
+      // Find first word boundary to prevent showing partial words
+      const firstSpaceIndex = content.indexOf(' ');
+      let firstWordLength = firstSpaceIndex > 0 ? firstSpaceIndex + 1 : Math.min(content.length, 10);
+      
+      // Start with first complete word to avoid showing misspelled words
+      setTimeout(() => {
+        setTypedContent(content.substring(0, firstWordLength));
+      }, 10);
+      
+      // Then continue with the rest of the text
+      let i = firstWordLength;
       const typeInterval = setInterval(() => {
         if (i < content.length) {
           setTypedContent((prev) => prev + content.charAt(i))
@@ -124,21 +152,23 @@ export function ChatMessage({
               h3: ({ children, ...props }: MarkdownComponentProps) => <h3 className="text-md font-bold my-1" {...props}>{children}</h3>,
               
               // Style lists
-              ul: ({ children, ...props }: MarkdownComponentProps) => <ul className="list-disc pl-5 my-2" {...props}>{children}</ul>,
-              ol: ({ children, ...props }: MarkdownComponentProps) => <ol className="list-decimal pl-5 my-2" {...props}>{children}</ol>,
+              ul: ({ children, ...props }: MarkdownComponentProps) => (
+                <ul className="list-disc list-outside ml-5 my-3 space-y-1" {...props}>
+                  {children}
+                </ul>
+              ),
+              ol: ({ children, ...props }: MarkdownComponentProps) => (
+                <ol className="list-decimal list-outside ml-5 my-3 space-y-1" {...props}>
+                  {children}
+                </ol>
+              ),
               li: renderListItemWithBoldHeading,
               
               // Style bold text
               strong: ({ children, ...props }: MarkdownComponentProps) => <strong className="font-bold text-purple-700 dark:text-purple-300 inline" {...props}>{children}</strong>,
               
               // Style paragraphs
-              p: ({ children, ...props }: MarkdownComponentProps) => {
-                // Check if this paragraph is inside a list item
-                const parentIsListItem = props.className?.includes('list-item') || false;
-                return (
-                  <p className={parentIsListItem ? "inline" : "my-2"} {...props}>{children}</p>
-                );
-              }
+              p: p,
             }}
           >
             {typedContent}
@@ -165,21 +195,23 @@ export function ChatMessage({
               h3: ({ children, ...props }: MarkdownComponentProps) => <h3 className="text-md font-bold my-1" {...props}>{children}</h3>,
               
               // Style lists
-              ul: ({ children, ...props }: MarkdownComponentProps) => <ul className="list-disc pl-5 my-2" {...props}>{children}</ul>,
-              ol: ({ children, ...props }: MarkdownComponentProps) => <ol className="list-decimal pl-5 my-2" {...props}>{children}</ol>,
+              ul: ({ children, ...props }: MarkdownComponentProps) => (
+                <ul className="list-disc list-outside ml-5 my-3 space-y-1" {...props}>
+                  {children}
+                </ul>
+              ),
+              ol: ({ children, ...props }: MarkdownComponentProps) => (
+                <ol className="list-decimal list-outside ml-5 my-3 space-y-1" {...props}>
+                  {children}
+                </ol>
+              ),
               li: renderListItemWithBoldHeading,
               
               // Style bold text
               strong: ({ children, ...props }: MarkdownComponentProps) => <strong className="font-bold text-purple-700 dark:text-purple-300 inline" {...props}>{children}</strong>,
               
               // Style paragraphs
-              p: ({ children, ...props }: MarkdownComponentProps) => {
-                // Check if this paragraph is inside a list item
-                const parentIsListItem = props.className?.includes('list-item') || false;
-                return (
-                  <p className={parentIsListItem ? "inline" : "my-2"} {...props}>{children}</p>
-                );
-              }
+              p: p,
             }}
           >
             {mainContent}

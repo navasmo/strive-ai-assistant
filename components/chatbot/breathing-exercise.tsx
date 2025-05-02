@@ -3,9 +3,9 @@
 import { useState, useEffect, useRef } from 'react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
-import { PlayIcon, PauseIcon, RefreshCwIcon } from 'lucide-react'
+import { PlayIcon, PauseIcon, RefreshCwIcon, XIcon } from 'lucide-react'
 
-export function BreathingExercise() {
+export function BreathingExercise({ onClose }: { onClose?: () => void }) {
   const [isActive, setIsActive] = useState(false)
   const [breathState, setBreathState] = useState<'inhale' | 'hold' | 'exhale'>('inhale')
   const [seconds, setSeconds] = useState(0)
@@ -99,7 +99,17 @@ export function BreathingExercise() {
   const opacity = isActive ? 0.7 + ((breathState === 'inhale' ? progress : 100 - progress) / 333) : 0.7
   
   return (
-    <div className="p-6 bg-white dark:bg-gray-800 rounded-lg shadow max-w-md mx-auto text-center">
+    <div className="p-6 bg-white dark:bg-gray-800 rounded-lg shadow max-w-md mx-auto text-center relative">
+      {onClose && (
+        <button 
+          onClick={onClose}
+          className="absolute top-2 right-2 p-1 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-500 dark:text-gray-400"
+          aria-label="Close breathing exercise"
+        >
+          <XIcon className="w-5 h-5" />
+        </button>
+      )}
+      
       <h3 className="text-xl font-medium mb-4 text-gray-900 dark:text-gray-100">
         4-4-6 Breathing Exercise
       </h3>

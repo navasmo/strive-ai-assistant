@@ -93,6 +93,7 @@ export function ChatContainer() {
   // UI state
   const [options, setOptions] = useState<Option[]>([])
   const [showOptions, setShowOptions] = useState(false)
+  const [typingComplete, setTypingComplete] = useState(true)
   const [showBreathingExercise, setShowBreathingExercise] = useState(false)
   const [showWelcome, setShowWelcome] = useState(true)
   const [showResourcesHint, setShowResourcesHint] = useState(false)
@@ -259,9 +260,9 @@ export function ChatContainer() {
   // Process regular messages after onboarding is complete
   const processRegularMessage = async (input: string, userMessage: Message) => {
     try {
-      // Show loading state
-      setIsLoading(true);
-      setShowOptions(false);
+      setIsLoading(true)
+      setShowOptions(false)
+      setTypingComplete(false)
       
       // Check for specific message types first
       if (input.toLowerCase().includes('breathing exercise')) {
@@ -375,7 +376,16 @@ export function ChatContainer() {
         // Generate relevant options based on the message content
         const newOptions = generateOptionsBasedOnContent(finalAiResponse, input);
         setOptions(newOptions);
-        setShowOptions(true);
+        
+        setIsLoading(false)
+        scrollToBottom()
+        
+        // Use setTimeout to show options AFTER typing animation is complete
+        // Average message takes about 2-3 seconds to type, so we wait 3-4 seconds
+        setTimeout(() => {
+          setShowOptions(true)
+          setTypingComplete(true)
+        }, finalAiResponse.length * 15 + 500) // Adjust based on typing speed (15ms per char) plus buffer
       } catch (apiError) {
         console.error('API call failed:', apiError);
         
@@ -596,11 +606,11 @@ export function ChatContainer() {
               
               {showBreathingExercise && (
                 <div className="my-4">
-                  <BreathingExercise />
+                  <BreathingExercise onClose={() => setShowBreathingExercise(false)} />
                 </div>
               )}
               
-              {showOptions && (
+              {showOptions && typingComplete && (
                 <div className="flex flex-wrap gap-2 mb-4 justify-center">
                   {options.map((option) => (
                     <ChatOption
