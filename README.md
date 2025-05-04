@@ -2,9 +2,11 @@
 
 ![Strive AI Assistant](/public/strive-mascot.png)
 
-A modern, responsive AI-powered assistant for career guidance and wellbeing support. Strive AI helps users navigate their professional development journey with personalized advice, resources, and emotional support.
+A modern, responsive AI-powered assistant for career guidance and well-being support. Strive AI helps users navigate their professional development journey with personalized advice, resources, and well-being support.
 
 > 📌 **View the complete case study at [navasmo.co.uk/projects/strive](https://navasmo.co.uk/projects/strive)**
+>
+> 🚀 **Live demo: [strive-ai-assistant.vercel.app](https://strive-ai-assistant.vercel.app/)**
 
 ## 🌟 Features
 
@@ -48,12 +50,6 @@ A modern, responsive AI-powered assistant for career guidance and wellbeing supp
 - **Next.js API Routes**: Serverless functions for API endpoints
 - **Supabase** *(Upcoming)*: Backend-as-a-Service for authentication and database
 
-### Development Tools
-- **TypeScript**: Static typing for safer code
-- **ESLint/Prettier**: Code quality and formatting
-- **React Hook Form**: Form validation and management
-- **Zod**: Schema validation
-- **React Query**: Data fetching and caching
 
 ## 🚀 Getting Started
 
