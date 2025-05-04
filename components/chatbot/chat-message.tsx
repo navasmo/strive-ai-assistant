@@ -245,7 +245,7 @@ export function ChatMessage({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
       className={cn(
-        'flex w-full mb-4 max-w-3xl mx-auto',
+        'flex w-full mb-4',
         role === 'user' ? 'justify-end' : 'justify-start'
       )}
     >
@@ -257,13 +257,13 @@ export function ChatMessage({
           </Avatar>
         </div>
       )}
-      
+      <div className="pb-4">
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.2 }}
         className={cn(
-          'max-w-[85%] md:max-w-[75%] text-sm rounded-2xl shadow-sm',
+          'text-sm rounded-2xl shadow-sm',
           role === 'user'
             ? 'user-message bg-gradient-to-r from-purple-600 to-purple-700 text-white'
             : 'bot-message bg-white dark:bg-gray-800 border border-purple-100 dark:border-purple-800/30',
@@ -278,17 +278,19 @@ export function ChatMessage({
           )}
           
           <div className={cn(
-            "p-3 whitespace-pre-wrap break-words",
+            "p-3 pb-0 whitespace-pre-wrap",
             role === 'user' ? "pt-3" : "pt-1"
           )}>
             {displayContent()}
           </div>
           
           {timestamp && (
-            <div className={cn(
-              "text-xs px-3 pb-2 flex items-center",
-              role === 'user' ? "text-white/70 justify-end" : "text-purple-700/70 dark:text-purple-400/70"
-            )}>
+            <div
+              className={cn(
+                'text-[10px] p-2 pl-3 pt-0 flex items-center',
+                role === 'user' ? "text-white/70 justify-end" : "text-purple-700/70 dark:text-purple-400/70"
+              )}
+            >
               <span className="inline-flex items-center">
                 {timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
               </span>
@@ -316,6 +318,7 @@ export function ChatMessage({
           </div>
         )}
       </motion.div>
+      </div>
       
       {role === 'user' && (
         <div className="flex-shrink-0 ml-2 self-end">

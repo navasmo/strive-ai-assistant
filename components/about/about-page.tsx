@@ -21,11 +21,9 @@ export function AboutPage() {
             <div className="inline-flex items-center justify-center p-2 bg-clip-text bg-gradient-to-r from-purple-500 to-indigo-600 rounded-full ">
               <Bot className="h-10 w-10 text-strive-primary dark:text-strive-light" />
             </div>
-            <div
-      className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-indigo-600 mb-8 font-brand text-center"
-    >
-      About Strive AI Assistant
-    </div>
+            <h1 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-indigo-600 mb-8 font-brand text-center">
+              About Strive AI Assistant
+            </h1>
             <p className="text-lg md:text-xl text-gray-700 dark:text-gray-300 max-w-2xl mx-auto">
               Your personal career coach helping you navigate your professional journey with confidence and wellbeing support.
             </p>
@@ -91,7 +89,7 @@ export function AboutPage() {
             </div>
           </section>
           
-          {/* Tech Stack */}
+          {/* Tech Stack 
           <section className="space-y-5 mt-8">
             <h2 className="text-2xl font-semibold text-strive-primary dark:text-strive-light flex items-center">
               <Code className="mr-2 h-5 w-5 text-strive-primary dark:text-strive-light" />
@@ -121,7 +119,7 @@ export function AboutPage() {
               />
             </div>
           </section>
-          
+          */}
           {/* User Benefits */}
           <section className="space-y-5 py-2">
             <h2 className="text-2xl font-semibold text-strive-primary dark:text-strive-light">

@@ -318,10 +318,10 @@ const InteractiveToolCard = ({
 export function ResourcesPage() {
   return (
     <div className="container mx-auto px-4 py-8 max-w-6xl">
-      <h1 className="text-3xl font-bold mb-2 text-gray-900 dark:text-white">
+      <h1 className="text-3xl font-bold mb-2 bg-clip-text bg-gradient-to-r from-purple-500 to-indigo-600 text-center">
         Resources
       </h1>
-      <p className="text-lg text-gray-600 dark:text-gray-300 mb-8">
+      <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 text-center">
         A collection of helpful tools for your career and wellbeing journey
       </p>
 
@@ -342,7 +342,7 @@ export function ResourcesPage() {
           <TabsTrigger 
             value="wellbeing" 
             className="flex items-center justify-center h-full rounded-lg text-base font-medium transition-all
-            data-[state=active]:bg-gradient-to-b data-[state=active]:from-green-500 data-[state=active]:to-green-600 
+            data-[state=active]:bg-gradient-to-b data-[state=active]:from-purple-500 data-[state=active]:to-purple-600 
             data-[state=active]:text-white data-[state=active]:shadow-md"
           >
             <HeartIcon className="h-5 w-5 mr-2" />
@@ -355,7 +355,7 @@ export function ResourcesPage() {
             {/* Main Content - Left Column */}
             <div className="lg:col-span-8 order-2 lg:order-1">
               <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200 flex items-center">
-                <BriefcaseIcon className="h-5 w-5 mr-2 text-blue-600 dark:text-blue-400" />
+                <BriefcaseIcon className="h-5 w-5 mr-2 text-purple-600 dark:text-purple-400" />
                 Job Search Platforms
               </h2>
               <p className="text-gray-600 dark:text-gray-400 mb-5">
@@ -448,7 +448,7 @@ export function ResourcesPage() {
             {/* Main Content - Left Column */}
             <div className="lg:col-span-8 order-2 lg:order-1">
               <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200 flex items-center">
-                <HeartIcon className="h-5 w-5 mr-2 text-pink-600 dark:text-pink-400" />
+                <HeartIcon className="h-5 w-5 mr-2 text-purple-600 dark:text-purple-400" />
                 Wellbeing Apps & Services
               </h2>
               <p className="text-gray-600 dark:text-gray-400 mb-5">
@@ -464,7 +464,7 @@ export function ResourcesPage() {
               {/* Wellbeing resources from NHS */}
               <div className="mt-12">
                 <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200 flex items-center">
-                  <HeartIcon className="h-5 w-5 mr-2 text-green-600 dark:text-green-400" />
+                  <HeartIcon className="h-5 w-5 mr-2 text-purple-600 dark:text-purple-400" />
                   NHS Mental Health Resources
                 </h2>
                 <p className="text-gray-600 dark:text-gray-400 mb-5">
@@ -497,10 +497,10 @@ export function ResourcesPage() {
             {/* Interactive Tools - Right Column */}
             <div className="lg:col-span-4 order-1 lg:order-2">
               <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200 flex items-center">
-                <SparklesIcon className="h-5 w-5 mr-2 text-green-600 dark:text-green-400" />
+                <SparklesIcon className="h-5 w-5 mr-2 text-purple-600 dark:text-purple-400" />
                 Interactive Tools
               </h2>
-              <p className="text-green-700 dark:text-green-300 mb-5 font-medium">
+              <p className="text-purple-700 dark:text-purple-300 mb-5 font-medium">
                 Exercises to help manage stress and anxiety.
               </p>
               

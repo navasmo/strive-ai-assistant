@@ -48,7 +48,7 @@ const WelcomeScreen = ({ onBegin }: { onBegin: () => void }) => (
     <div
       className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-indigo-600 mb-8 font-brand text-center"
     >
-      Strive AI Assistant
+      Strive AI
     </div>
     
     <div
